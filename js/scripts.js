@@ -3,7 +3,7 @@ let allPokemon = [];
 
 async function loadPokemons() {
     try {
-        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151'); // erste 151
+        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // erste 1025
         const listData = await listRes.json();
         allPokemon = listData.results; // {name, url}
         renderPokemonList();
@@ -24,26 +24,68 @@ function renderPokemonList() {
         listDiv.appendChild(div);
     });
 }
-
 async function loadPokemonDetail(name) {
-    const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const detailDiv = document.getElementById("pokemonDetail");
+
     try {
-        const res = await fetch(url);
+        // 1️⃣ Basisdaten
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
         if (!res.ok) throw new Error("Pokémon nicht gefunden");
         const data = await res.json();
+
+        // 2️⃣ Species (für deutsche Namen + Beschreibung)
+        const speciesRes = await fetch(data.species.url);
+        const speciesData = await speciesRes.json();
+
+        // Deutscher Name
+        const germanNameEntry = speciesData.names.find(n => n.language.name === "de");
+        const germanName = germanNameEntry ? germanNameEntry.name : capitalize(data.name);
+
+        // Deutsche Beschreibung
+        const germanTextEntry = speciesData.flavor_text_entries.find(
+            f => f.language.name === "de"
+        );
+        const description = germanTextEntry 
+            ? germanTextEntry.flavor_text.replace(/\f/g, " ")
+            : "Keine Beschreibung";
+
+        // Typen
         const types = data.types.map(t => t.type.name).join(', ');
+
+        // Fähigkeiten
         const abilities = data.abilities.map(a => a.ability.name).join(', ');
 
-        detailDiv.innerHTML = `
-            <h3>${capitalize(data.name)}</h3>
+        // Stats
+        const stats = data.stats.map(s => `
+            <p>${capitalize(s.stat.name)}: ${s.base_stat}</p>
+        `).join("");
+
+        // HTML bauen
+            detailDiv.innerHTML = `
+        <div class="pokemon-detail-container">
+
             <img src="${data.sprites.front_default}" alt="${data.name}">
-            <p>Typen: ${types}</p>
-            <p>HP: ${data.stats[0].base_stat}</p>
-            <p>Angriff: ${data.stats[1].base_stat}</p>
-            <p>Verteidigung: ${data.stats[2].base_stat}</p>
-            <p>Fähigkeiten: ${abilities}</p>
-        `;
+
+            <div class="pokemon-info-block">
+                <h2>${germanName} (${capitalize(data.name)})</h2>
+                <p><strong>Typen:</strong> ${types}</p>
+                <p><strong>Größe:</strong> ${data.height / 10} m</p>
+                <p><strong>Gewicht:</strong> ${data.weight / 10} kg</p>
+                <p><strong>Fähigkeiten:</strong> ${abilities}</p>
+            </div>
+
+            <div class="pokemon-stats-block">
+                <h3>Stats</h3>
+                ${stats}
+            </div>
+
+            <div class="pokemon-description-block">
+                <h3>Beschreibung</h3>
+                <p>${description}</p>
+            </div>
+
+        </div>
+    `;
     } catch (err) {
         detailDiv.innerHTML = `<p style="color:red">${err.message}</p>`;
     }

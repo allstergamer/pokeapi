@@ -1,26 +1,49 @@
-body { font-family: sans-serif; }
-#pokemonList { max-height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; }
-.pokemonItem { margin: 2px 0; cursor: pointer; }
-#pokemonDetail img { width: 120px; height: 120px; }
-
+/* Basis */
 body {
   font-family: Arial, sans-serif;
-  background-color: #fa5a5a;
+  background-color: #ff0000;
+  margin: 0;
 }
 
-#pokedex {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-gap: 20px;
+/* Container */
+.bodyelement {
+  width: 80%;
+  margin: 50px auto;
+  background-color: rgba(255, 222, 0, 1);
   padding: 20px;
+  border-radius: 20px;
 }
 
+/* Liste */
+#pokemonList {
+  max-height: 400px;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.pokemonItem {
+  margin: 2px 0;
+  cursor: pointer;
+}
+
+/* Pokédex Grid */
+#pokedex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Karten */
 .card {
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
   transition: transform 0.2s ease-in-out;
   position: relative;
 }
@@ -34,28 +57,67 @@ body {
   border-radius: 5px;
 }
 
-.card h2 {
-  margin-top: 10px;
-}
-
-.card p {
-  margin-top: 10px;
-}
-
+/* Typ Badge */
 .pokemon-type {
   background-color: #ddd;
   padding: 5px 10px;
   border-radius: 5px;
-  margin-top: 10px;
   position: absolute;
   top: 10px;
   left: 10px;
 }
 
-.pokemon-description {
-  margin-top: 10px;
+/* Detailansicht */
+#pokemonDetail {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 20px 0;
+  padding: 20px;
 }
 
+.pokemon-detail-container {
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Bild */
+.pokemon-detail-container img {
+  width: 150px;
+  height: 150px;
+}
+
+/* Infos links */
+.pokemon-info-block {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Stats rechts */
+.pokemon-stats-block {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Beschreibung unter allem */
+.pokemon-description-block {
+  grid-column: 1 / -1; /* über alle Spalten */
+  margin-top: 10px;
+}
+🔥 Ergeb
+
+.pokemon-details-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Infos */
 .pokemon-info {
   display: flex;
   flex-direction: column;
@@ -64,17 +126,4 @@ body {
 
 .pokemon-info p {
   margin-top: 10px;
-}
-
-.pokemon-info img {
-  max-width: 100%;
-  border-radius: 5px;
-}
-
-.bodyelement{
-    width: 80%;
-    margin: 100px auto;
-    background-color: rgba(255, 222, 00, 1);
-    padding: 20px;
-    border-radius: 20px;   
 }
