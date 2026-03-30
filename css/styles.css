@@ -5,7 +5,7 @@ body { font-family: sans-serif; }
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #fa5a5a;
 }
 
 #pokedex {
@@ -69,4 +69,12 @@ body {
 .pokemon-info img {
   max-width: 100%;
   border-radius: 5px;
+}
+
+.bodyelement{
+    width: 80%;
+    margin: 100px auto;
+    background-color: rgba(255, 222, 00, 1);
+    padding: 20px;
+    border-radius: 20px;   
 }
