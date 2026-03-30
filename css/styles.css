@@ -1,129 +1,137 @@
 /* Basis */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ff0000;
-  margin: 0;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    background-image:url("https://wallpapers-clan.com/wp-content/uploads/2025/07/pokemon-eevee-and-evolutions-dreamy-sleep-desktop-wallpaper-preview.jpg");
+    
+    margin: 0;
 }
 
 /* Container */
 .bodyelement {
-  width: 80%;
-  margin: 50px auto;
-  background-color: rgba(255, 222, 0, 1);
-  padding: 20px;
-  border-radius: 20px;
+    width: 80%;
+    margin: 50px auto;
+    /* background-color: rgba(255, 222, 0, 1); */
+    background-color: rgba(215, 126, 250, 0.85); 
+    padding: 20px;
+    border-radius: 20px;
 }
 
 /* Liste */
 #pokemonList {
-  max-height: 400px;
-  overflow-y: scroll;
-  border: 1px solid #ccc;
-  padding: 5px;
+    max-height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 5px;
 }
 
 .pokemonItem {
-  margin: 2px 0;
-  cursor: pointer;
+    margin: 2px 0;
+    cursor: pointer;
 }
 
 /* Pokédex Grid */
 #pokedex {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 /* Karten */
 .card {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  padding: 10px;
-  width: 200px;
-  text-align: center;
-  transition: transform 0.2s ease-in-out;
-  position: relative;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
 }
 
 .card:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .card img {
-  max-width: 100%;
-  border-radius: 5px;
+    max-width: 100%;
+    border-radius: 5px;
 }
 
 /* Typ Badge */
 .pokemon-type {
-  background-color: #ddd;
-  padding: 5px 10px;
-  border-radius: 5px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
+    background-color: #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    }
 
-/* Detailansicht */
-#pokemonDetail {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    /* Detailansicht */
+    #pokemonDetail {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin: 20px 0;
-  padding: 20px;
-}
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+    padding: 20px;
+    background-color: rgb(156, 156, 154);
+    }
 
-.pokemon-detail-container {
-  display: grid;
-  grid-template-columns: 150px 1fr 1fr;
-  gap: 20px;
-  align-items: start;
-}
+    .pokemon-detail-container {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+    }
 
-/* Bild */
-.pokemon-detail-container img {
-  width: 150px;
-  height: 150px;
-}
+    /* Bild */
+    .pokemon-detail-container img {
+    width: 150px;
+    height: 150px;
+    }
 
-/* Infos links */
-.pokemon-info-block {
-  display: flex;
-  flex-direction: column;
-}
+    /* Infos links */
+    .pokemon-info-block {
+    display: flex;
+    flex-direction: column;
+    }
 
-/* Stats rechts */
-.pokemon-stats-block {
-  display: flex;
-  flex-direction: column;
-}
+    /* Stats rechts */
+    .pokemon-stats-block {
+    display: flex;
+    flex-direction: column;
+    }
 
-/* Beschreibung unter allem */
-.pokemon-description-block {
-  grid-column: 1 / -1; /* über alle Spalten */
-  margin-top: 10px;
-}
-🔥 Ergeb
+    /* Beschreibung unter allem */
+    .pokemon-description-block {
+    grid-column: 1 / -1; /* über alle Spalten */
+    margin-top: 10px;
+    }
+    🔥 Ergeb
 
-.pokemon-details-text {
-  display: flex;
-  flex-direction: column;
-}
+    .pokemon-details-text {
+    display: flex;
+    flex-direction: column;
+    }
 
-/* Infos */
-.pokemon-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+    /* Infos */
+    .pokemon-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
 
-.pokemon-info p {
-  margin-top: 10px;
-}
+    .pokemon-info p {
+    margin-top: 10px;
+    }
