@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Mini Pokédex</title>
+</head>
+<body>
+    <h1>Mini Pokédex</h1>
+    <input type="text" id="pokemonInput" placeholder="Pokémon Name">
+    <button onclick="getPokemon()">Abfragen</button>
+
+    <div id="pokemonInfo"></div>
+
+<script>
+async function getPokemon() {
+    const name = document.getElementById("pokemonInput").value.toLowerCase();
+    const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
+    const infoDiv = document.getElementById("pokemonInfo");
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Pokémon nicht gefunden");
+        const data = await res.json();
+
+        const types = data.types.map(t => t.type.name).join(', ');
+        infoDiv.innerHTML = `
+            <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
+            <img src="${data.sprites.front_default}" alt="${data.name}">
+            <p>HP: ${data.stats[0].base_stat}</p>
+            <p>Typen: ${types}</p>
+        `;
+    } catch (err) {
+        infoDiv.innerHTML = `<p style="color:red">${err.message}</p>`;
+    }
+}
+</script>
+</body>
+</html>
