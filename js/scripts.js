@@ -65,3 +65,69 @@ function capitalize(str) {
 
 // Beim Laden der Seite
 window.onload = loadPokemons;
+
+
+
+
+const pokedex = document.getElementById('pokedex');
+const pokemons = {};
+
+fetch('data.json')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(pokemon => {
+      pokemons[pokemon.Id] = pokemon;
+      renderPokemon(pokemon.Id);
+    });
+  });
+
+function renderPokemon(id) {
+  const pokemon = pokemons[id];
+
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const image = document.createElement('img');
+  image.src = pokemon.Imagen;
+  image.alt = pokemon.Nombre;
+
+  const name = document.createElement('h2');
+  name.textContent = pokemon.Nombre;
+
+  const type = document.createElement('p');
+  type.className = 'pokemon-type';
+  type.textContent = `Tipo: ${pokemon.Tipo}`;
+
+  const description = document.createElement('p');
+  description.className = 'pokemon-description';
+  description.textContent = `Descripción: ${pokemon.Descripción}`;
+
+  const info = document.createElement('div');
+  info.className = 'pokemon-info';
+
+  const height = document.createElement('p');
+  height.textContent = `Altura: ${pokemon.Altura} m`;
+
+  const weight = document.createElement('p');
+  weight.textContent = `Peso: ${pokemon.Peso} kg`;
+
+  const imageInfo = document.createElement('img');
+  imageInfo.src = pokemon.ImagenInfo;
+  imageInfo.alt = 'Imagen de información';
+
+  imageInfo.addEventListener('click', () => {
+    showPokemonInfo(pokemon);
+  });
+
+  info.appendChild(height);
+  info.appendChild(weight);
+  info.appendChild(imageInfo);
+
+  card.appendChild(image);
+  card.appendChild(name);
+  card.appendChild(type)
+  card.appendChild(description);
+  card.appendChild(info);
+
+  pokedex.appendChild(card);
+}
