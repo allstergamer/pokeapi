@@ -1,11 +1,30 @@
-
 let allPokemon = [];
+let germanToEnglish = {}; // DE -> EN Mapping
 
 async function loadPokemons() {
     try {
-        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // erste 1025
+        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151'); // oder 1025
         const listData = await listRes.json();
         allPokemon = listData.results; // {name, url}
+
+        // Mapping aufbauen
+        for (let p of allPokemon) {
+            try {
+                const res = await fetch(p.url);
+                const data = await res.json();
+
+                const speciesRes = await fetch(data.species.url);
+                const speciesData = await speciesRes.json();
+
+                const germanEntry = speciesData.names.find(n => n.language.name === "de");
+                if (germanEntry) {
+                    germanToEnglish[germanEntry.name.toLowerCase()] = data.name; // DE → EN
+                }
+            } catch (e) {
+                console.error("Mapping Fehler:", p.name, e);
+            }
+        }
+
         renderPokemonList();
     } catch (err) {
         console.error(err);
@@ -92,15 +111,23 @@ async function loadPokemonDetail(name) {
 }
 
 function searchPokemon() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
-    const found = allPokemon.find(p => p.name === query);
-    if (found) {
-        loadPokemonDetail(found.name);
+    const query = document.getElementById("searchInput").value.toLowerCase().trim();
+
+    let apiName = germanToEnglish[query]; // zuerst deutsches Mapping
+
+    if (!apiName) {
+        // fallback: englischer Name direkt
+        const found = allPokemon.find(p => p.name === query);
+        if (found) apiName = found.name;
+    }
+
+    if (apiName) {
+        loadPokemonDetail(apiName);
     } else {
-        document.getElementById("pokemonDetail").innerHTML = `<p style="color:red">Pokémon nicht gefunden</p>`;
+        document.getElementById("pokemonDetail").innerHTML =
+            `<p style="color:red">Pokémon nicht gefunden</p>`;
     }
 }
-
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }

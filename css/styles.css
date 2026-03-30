@@ -16,7 +16,7 @@ body {
     width: 80%;
     margin: 50px auto;
     /* background-color: rgba(255, 222, 0, 1); */
-    background-color: rgba(215, 126, 250, 0.85); 
+    background: linear-gradient(90deg,rgba(134, 75, 153, 0.85) 0%, rgba(127, 219, 217, 0.85) 50%, rgba(240, 201, 96, 0.85) 100%); 
     padding: 20px;
     border-radius: 20px;
 }
@@ -80,12 +80,12 @@ body {
     align-items: center;
     gap: 20px;
 
-    border: 3px solid #ccc;
+    border: 3px solid #cccccc74;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin: 20px 0;
     padding: 20px;
-    background-color: rgb(156, 156, 154);
+    background-color: rgba(156, 156, 154, 0.344);
     }
 
     .pokemon-detail-container {
