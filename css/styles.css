@@ -80,12 +80,12 @@ body {
     align-items: center;
     gap: 20px;
 
-    border: 3px solid #cccccc74;
+    border: 3px solid #7945f333;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
     padding: 20px;
-    background-color: rgba(156, 156, 154, 0.344);
+    background-color: rgba(154, 154, 156, 0.344);
     }
 
     .pokemon-detail-container {
