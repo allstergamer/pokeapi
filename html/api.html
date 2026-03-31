@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notizblock</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Mein Notizblock</h1>
+    
+    <!-- Formular für neue Notiz -->
+    <form id="noteForm">
+      <input type="text" id="titleInput" placeholder="Titel" required>
+      <textarea id="contentInput" placeholder="Inhalt" required></textarea>
+      <button type="submit">Notiz hinzufügen</button>
+    </form>
+    
+    <!-- Liste der Notizen -->
+    <div id="notesList"></div>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api/notes';
+    const notesList = document.getElementById('notesList');
+    const noteForm = document.getElementById('noteForm');
+    const titleInput = document.getElementById('titleInput');
+    const contentInput = document.getElementById('contentInput');
+
+    // DOM-Content geladen
+    document.addEventListener('DOMContentLoaded', loadNotes);
+
+    // Notizen laden und anzeigen
+    async function loadNotes() {
+      try {
+        const response = await fetch(API_BASE);
+        if (!response.ok) throw new Error(HTTP ${response.status});
+        const notes = await response.json();
+        renderNotes(notes);
+      } catch (error) {
+        console.error('Fehler beim Laden:', error);
+        notesList.innerHTML = '<p>Fehler beim Laden der Notizen.</p>';
+      }
+    }
+
+    // Notizen rendern (mit Edit/Delete-Buttons)
+    function renderNotes(notes) {
+      notesList.innerHTML = '';
+      notes.forEach(note => {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'note';
+        noteDiv.innerHTML = 
+          <h3>${note.title}</h3>
+          <p>${note.content}</p>
+          <small>Erstellt: ${new Date(note.created_at).toLocaleString()} | Aktualisiert: ${new Date(note.updated_at).toLocaleString()}</small>
+          <button onclick="editNote(${note.id}, '${note.title.replace(/'/g, "\\'")}', '${note.content.replace(/'/g, "\\'")}')">Bearbeiten</button>
+          <button onclick="deleteNote(${note.id})">Löschen</button>
+        ;
+        notesList.appendChild(noteDiv);
+      });
+    }
+
+    // Neue Notiz hinzufügen
+    noteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = titleInput.value.trim();
+      const content = contentInput.value.trim();
+      if (!title || !content) return alert('Titel und Inhalt sind erforderlich.');
+
+      try {
+        const response = await fetch(API_BASE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, content })
+        });
+        if (!response.ok) throw new Error(HTTP ${response.status});
+        titleInput.value = '';
+        contentInput.value = '';
+        loadNotes(); // Liste neu laden
+      } catch (error) {
+        console.error('Fehler beim Erstellen:', error);
+        alert('Fehler beim Erstellen der Notiz.');
+      }
+    });
+
+    // Notiz bearbeiten (Inline-Edit)
+    function editNote(id, currentTitle, currentContent) {
+      const newTitle = prompt('Neuer Titel:', currentTitle);
+      const newContent = prompt('Neuer Inhalt:', currentContent);
+      if (!newTitle || !newContent) return;
+
+      fetch(${API_BASE}/${id}, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: newTitle.trim(), content: newContent.trim() })
+      })
+      .then(response => {
+        if (!response.ok) throw new Error(HTTP ${response.status});
+        loadNotes();
+      })
+      .catch(error => {
+        console.error('Fehler beim Aktualisieren:', error);
+        alert('Fehler beim Aktualisieren.');
+      });
+    }
+
+    // Notiz löschen
+    async function deleteNote(id) {
+      if (!confirm('Wirklich löschen?')) return;
+
+      try {
+        const response = await fetch(${API_BASE}/${id}, { method: 'DELETE' });
+        if (!response.ok) throw new Error(HTTP ${response.status});
+        loadNotes();
+      } catch (error) {
+        console.error('Fehler beim Löschen:', error);
+        alert('Fehler beim Löschen.');
+      }
+    }
+  </script>
+</body>
+</html>
