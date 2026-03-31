@@ -95,7 +95,7 @@ async function loadPokemonDetail(name) {
 
             <div class="pokemon-stats-block">
                 <h3>Stats</h3>
-                ${basestats}
+                ${stats}
             </div>
 
             <div class="pokemon-description-block">
