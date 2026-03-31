@@ -1,6 +1,3 @@
-const API_BASE_URL = 'http://localhost:5500/html/notes';
-
-// DOM-Elemente abrufen
 const notesList = document.getElementById('notes-list');
 const noteForm = document.getElementById('note-form');
 const noteIdInput = document.getElementById('note-id');
@@ -8,48 +5,25 @@ const noteTitleInput = document.getElementById('note-title');
 const noteContentInput = document.getElementById('note-content');
 const submitButton = document.getElementById('submit-button');
 const cancelButton = document.getElementById('cancel-edit-button');
-const loadingMessage = document.querySelector('.loading-message');
 
-// Nachrichten anzeigen
-function showMessage(element, message, isError = false) {
-    element.textContent = message;
-    element.className = isError ? 'error-message' : 'loading-message';
-    element.classList.remove('hidden');
-}
-
-function hideMessage(element) {
-    element.classList.add('hidden');
-}
-
-// Alle Notizen laden
-async function fetchNotes() {
+// 🔹 Notizen laden
+function fetchNotes() {
     notesList.innerHTML = '';
-    showMessage(loadingMessage, 'Notizen werden geladen...');
 
-    try {
-        const response = await fetch(API_BASE_URL);
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-        if (!response.ok) {
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-        }
-
-        const notes = await response.json();
-        hideMessage(loadingMessage);
-
-        if (notes.length === 0) {
-            notesList.innerHTML = '<p class="loading-message">Noch keine Notizen vorhanden. Füge eine neue hinzu!</p>';
-            return;
-        }
-
-        notes.forEach(note => displayNote(note));
-
-    } catch (error) {
-        console.error('Fehler beim Abrufen der Notizen:', error);
-        showMessage(loadingMessage, `Fehler beim Laden der Notizen: ${error.message}`, true);
+    if (notes.length === 0) {
+        notesList.innerHTML = '<p class="loading-message">Noch keine Notizen vorhanden.</p>';
+        return;
     }
+
+    // Neueste oben
+    notes.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    notes.forEach(note => displayNote(note));
 }
 
-// Einzelne Notiz anzeigen
+// 🔹 Notiz anzeigen
 function displayNote(note) {
     const noteItem = document.createElement('div');
     noteItem.classList.add('note-item');
@@ -79,7 +53,7 @@ function displayNote(note) {
     notesList.prepend(noteItem);
 }
 
-// Notiz bearbeiten
+// 🔹 Notiz bearbeiten
 function editNote(note) {
     noteIdInput.value = note.id;
     noteTitleInput.value = note.title;
@@ -91,40 +65,22 @@ function editNote(note) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Notiz löschen
-async function deleteNote(id) {
+// 🔹 Notiz löschen
+function deleteNote(id) {
     if (!confirm('Bist du sicher, dass du diese Notiz löschen möchtest?')) {
         return;
     }
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/${id}`, {
-            method: 'DELETE'
-        });
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+    notes = notes.filter(n => n.id != id);
 
-        if (!response.ok) {
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-        }
+    localStorage.setItem('notes', JSON.stringify(notes));
 
-        const noteItemToRemove = document.querySelector(`.note-item[data-id="${id}"]`);
-        if (noteItemToRemove) {
-            noteItemToRemove.remove();
-        }
-
-        if (notesList.children.length === 0) {
-            notesList.innerHTML = '<p class="loading-message">Noch keine Notizen vorhanden. Füge eine neue hinzu!</p>';
-        }
-
-        console.log(`Notiz mit ID ${id} erfolgreich gelöscht.`);
-
-    } catch (error) {
-        console.error('Fehler beim Löschen der Notiz:', error);
-        alert(`Fehler beim Löschen der Notiz: ${error.message}`);
-    }
+    fetchNotes();
 }
 
-// Formular absenden
-noteForm.addEventListener('submit', async (event) => {
+// 🔹 Formular absenden (Neu + Update)
+noteForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const id = noteIdInput.value;
@@ -136,46 +92,46 @@ noteForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    const method = id ? 'PUT' : 'POST';
-    const url = id ? `${API_BASE_URL}/${id}` : API_BASE_URL;
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-    try {
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, content })
+    if (id) {
+        // Update
+        notes = notes.map(n =>
+            n.id == id
+                ? { ...n, title, content, updated_at: new Date() }
+                : n
+        );
+    } else {
+        // Neu
+        notes.push({
+            id: Date.now(),
+            title,
+            content,
+            created_at: new Date(),
+            updated_at: new Date()
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`HTTP-Fehler! Status: ${response.status} - ${errorData.error || 'Unbekannter Fehler'}`);
-        }
-
-        resetForm();
-        fetchNotes();
-
-    } catch (error) {
-        console.error('Fehler beim Speichern der Notiz:', error);
-        alert(`Fehler beim Speichern der Notiz: ${error.message}`);
     }
+
+    localStorage.setItem('notes', JSON.stringify(notes));
+
+    resetForm();
+    fetchNotes();
 });
 
-// Formular zurücksetzen
+// 🔹 Formular zurücksetzen
 function resetForm() {
     noteIdInput.value = '';
     noteTitleInput.value = '';
     noteContentInput.value = '';
 
-    submitButton.textContent = 'Notiz hinzufügen';
+    submitButton.textContent = 'Notiz speichern';
     cancelButton.classList.add('hidden');
 }
 
-// Abbrechen-Button
+// 🔹 Abbrechen Button
 cancelButton.addEventListener('click', () => {
     resetForm();
 });
 
-// Initial laden
+// 🔹 Initial laden
 fetchNotes();
