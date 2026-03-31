@@ -162,3 +162,14 @@ body {
     .pokemon-info p {
     margin-top: 10px;
     }
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+
+    

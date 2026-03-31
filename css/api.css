@@ -11,7 +11,7 @@ body {
 
 .container {
     background-color: #ffffff;
-    padding: 30px;
+    padding: 100px 20px 20px 20px; /* oben genug Platz für Navbar */
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -165,4 +165,12 @@ h1, h2 {
 
 .hidden {
     display: none !important;
+}
+
+.bodyelement {
+    margin: 0 auto;
+    width: 80%;
+    padding: 100px 20px 20px 20px; /* oben genug Platz für Navbar */
+    border-radius: 20px;
+    background: rgba(0,0,0,0.6);
 }
