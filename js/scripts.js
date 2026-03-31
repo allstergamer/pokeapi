@@ -201,3 +201,5 @@ function renderPokemon(id) {
 
   pokedex.appendChild(card);
 }
+
+
