@@ -3,7 +3,7 @@ let germanToEnglish = {}; // DE -> EN Mapping
 
 async function loadPokemons() {
     try {
-        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151'); // oder 1025
+        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // oder 1025
         const listData = await listRes.json();
         allPokemon = listData.results; // {name, url}
 

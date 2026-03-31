@@ -1,0 +1,168 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.add-note-section, .notes-list-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+.notes-list-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Formular-Styling */
+#note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#note-form input[type="text"],
+#note-form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box; /* Padding in die Breite einbeziehen */
+}
+
+#note-form textarea {
+    resize: vertical; /* Nur vertikal skalierbar */
+    min-height: 100px;
+}
+
+#note-form button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#submit-button {
+    background-color: #28a745;
+    color: white;
+}
+#submit-button:hover {
+    background-color: #218838;
+}
+
+#cancel-edit-button {
+    background-color: #6c757d;
+    color: white;
+}
+#cancel-edit-button:hover {
+    background-color: #5a6268;
+}
+#cancel-edit-button.hidden {
+    display: none;
+}
+
+/* Notizen-Liste */
+.note-item {
+    background-color: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.note-item h3 {
+    margin: 0 0 10px 0;
+    color: #34495e;
+}
+
+.note-item p {
+    margin: 0;
+    line-height: 1.6;
+    color: #555;
+}
+
+.note-meta {
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 10px;
+    border-top: 1px dashed #eee;
+    padding-top: 8px;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.note-actions button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: white;
+}
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Nachrichten */
+.loading-message, .error-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    color: #856404;
+    margin-top: 20px;
+}
+.error-message {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.hidden {
+    display: none !important;
+}
