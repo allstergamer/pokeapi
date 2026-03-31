@@ -36,14 +36,18 @@ async function loadPokemons() {
 function renderPokemonList() {
     const listDiv = document.getElementById("pokemonList");
     listDiv.innerHTML = "";
+
     allPokemon.forEach(p => {
+        const germanName = Object.keys(germanToEnglish).find(key => germanToEnglish[key] === p.name) || capitalize(p.name);
+
         const div = document.createElement("div");
         div.className = "pokemonItem";
-        div.innerText = capitalize(p.name);
-        div.onclick = () => loadPokemonDetail(p.name);
+        div.innerText = germanName;
+        div.onclick = () => loadPokemonDetail(p.name); // API braucht englischen Namen
         listDiv.appendChild(div);
     });
 }
+// Pokémon Detail laden beim anklicken in der liste oder beim suchen
 async function loadPokemonDetail(name) {
     const detailDiv = document.getElementById("pokemonDetail");
 
@@ -110,12 +114,13 @@ async function loadPokemonDetail(name) {
         detailDiv.innerHTML = `<p style="color:red">${err.message}</p>`;
     }
 }
-
+// Suchfunktion ueber den details
 function searchPokemon() {
+    // Eingabe verarbeiten
     const query = document.getElementById("searchInput").value.toLowerCase().trim();
 
     let apiName = germanToEnglish[query]; // zuerst deutsches Mapping
-
+    
     if (!apiName) {
         // fallback: englischer Name direkt
         const found = allPokemon.find(p => p.name === query);
@@ -151,6 +156,7 @@ fetch('data.json')
     });
   });
 
+  // Funktion zum Rendern eines Pokemons mit bild
 function renderPokemon(id) {
   const pokemon = pokemons[id];
 
@@ -188,7 +194,7 @@ function renderPokemon(id) {
   imageInfo.addEventListener('click', () => {
     showPokemonInfo(pokemon);
   });
-
+// alle infos zu dem pokemon
   info.appendChild(height);
   info.appendChild(weight);
   info.appendChild(imageInfo);

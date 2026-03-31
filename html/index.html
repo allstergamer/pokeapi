@@ -21,11 +21,11 @@
 </nav>
 <div class="bodyelement">
 <h1>Mini Pokédex</h1>
-
+<!-- Suchfunktion -->
 <div class="searchBox">
     <input class="searchInput" type="text" id="searchInput" placeholder="Pokémon suchen..." />
     <button class="searchButton" onclick="searchPokemon()">
-        <!-- Dein SVG bleibt hier drin -->
+        <!-- svg fuer das such Icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
             <g clip-path="url(#clip0_2_17)">
                 <g filter="url(#filter0_d_2_17)">
@@ -48,14 +48,15 @@
                 </clipPath>
             </defs>
         </svg>
+        <!-- end svg -->
     </button>
 </div>
-
+<!--hier wird das Pokemon reingeladen wenn eins ausgewaehlt oder gesucht wurde-->
 <h2>Details</h2>
 <div id="pokemonDetail" >
     
 </div>
-
+<!--hier werden alle Pokemon geladen in einer tabelle-->
 <h2>Gesamtsammlung</h2>
 <div id="pokemonList">Lädt...</div>
 
