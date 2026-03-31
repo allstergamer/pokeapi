@@ -18,8 +18,8 @@ async function loadPokemons() {
 
                 const germanEntry = speciesData.names.find(n => n.language.name === "de");
                 if (germanEntry) {
-                    console.log(`DE: ${germanEntry.name}, EN: ${data.name}`); // Überprüfe die Ausgabe im Browser
-                    germanToEnglish[germanEntry.name.toLowerCase()] = data.name; // DE → EN
+                    /*console.log(`DE: ${germanEntry.name}, EN: ${data.name}`);*/ // Überprüfe die Ausgabe im Browser
+                    germanToEnglish[germanEntry.name] = data.name; // DE → EN
                 }
             } catch (e) {
                 console.error("Mapping Fehler:", p.name, e);
