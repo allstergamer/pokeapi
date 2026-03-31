@@ -1,9 +1,10 @@
 let allPokemon = [];
-let germanToEnglish = {}; // DE -> EN Mapping
+let germanToEnglish = {};
+let englishToGerman = {};
 
 async function loadPokemons() {
     try {
-        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // oder 1025
+        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // oder 151
         const listData = await listRes.json();
         allPokemon = listData.results; // {name, url}
 
@@ -19,7 +20,8 @@ async function loadPokemons() {
                 const germanEntry = speciesData.names.find(n => n.language.name === "de");
                 if (germanEntry) {
                     /*console.log(`DE: ${germanEntry.name}, EN: ${data.name}`);*/ // Überprüfe die Ausgabe im Browser
-                    germanToEnglish[germanEntry.name] = data.name; // DE → EN
+                    germanToEnglish[germanEntry.name.toLowerCase()] = data.name;
+                    englishToGerman[data.name] = germanEntry.name;
                 }
             } catch (e) {
                 console.error("Mapping Fehler:", p.name, e);
@@ -38,7 +40,7 @@ function renderPokemonList() {
     listDiv.innerHTML = "";
 
     allPokemon.forEach(p => {
-        const germanName = Object.keys(germanToEnglish).find(key => germanToEnglish[key] === p.name) || capitalize(p.name);
+        const germanName = englishToGerman[p.name] || capitalize(p.name);
 
         const div = document.createElement("div");
         div.className = "pokemonItem";
@@ -115,97 +117,33 @@ async function loadPokemonDetail(name) {
     }
 }
 // Suchfunktion ueber den details
-function searchPokemon() {
-    // Eingabe verarbeiten
-    const query = document.getElementById("searchInput").value.toLowerCase().trim();
 
-    let apiName = germanToEnglish[query]; // zuerst deutsches Mapping
-    
+// 🔹 Suchfunktion für deutsche und englische Namen
+function searchPokemon() {
+    const query = document.getElementById("searchInput").value.toLowerCase().trim();
+    let apiName = germanToEnglish[query]; // DE → EN Mapping
+
     if (!apiName) {
-        // fallback: englischer Name direkt
-        const found = allPokemon.find(p => p.name === query);
+        const found = allPokemon.find(p => p.name.toLowerCase() === query);
         if (found) apiName = found.name;
     }
 
     if (apiName) {
         loadPokemonDetail(apiName);
     } else {
-        document.getElementById("pokemonDetail").innerHTML =
-            `<p style="color:red">Pokémon nicht gefunden</p>`;
+        document.getElementById("pokemonDetail").innerHTML = `<p style="color:red">Pokémon nicht gefunden</p>`;
     }
 }
+
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Beim Laden der Seite
+// 🔹 Seite laden
 window.onload = loadPokemons;
 
 
 
 
-const pokedex = document.getElementById('pokedex');
-const pokemons = {};
-
-fetch('data.json')
-  .then(response => response.json())
-  .then(data => {
-    data.forEach(pokemon => {
-      pokemons[pokemon.Id] = pokemon;
-      renderPokemon(pokemon.Id);
-    });
-  });
-
-  // Funktion zum Rendern eines Pokemons mit bild
-function renderPokemon(id) {
-  const pokemon = pokemons[id];
-
-  const card = document.createElement('div');
-  card.className = 'card';
-
-  const image = document.createElement('img');
-  image.src = pokemon.Imagen;
-  image.alt = pokemon.Nombre;
-
-  const name = document.createElement('h2');
-  name.textContent = pokemon.Nombre;
-
-  const type = document.createElement('p');
-  type.className = 'pokemon-type';
-  type.textContent = `Tipo: ${pokemon.Tipo}`;
-
-  const description = document.createElement('p');
-  description.className = 'pokemon-description';
-  description.textContent = `Descripción: ${pokemon.Descripción}`;
-
-  const info = document.createElement('div');
-  info.className = 'pokemon-info';
-
-  const height = document.createElement('p');
-  height.textContent = `Altura: ${pokemon.Altura} m`;
-
-  const weight = document.createElement('p');
-  weight.textContent = `Peso: ${pokemon.Peso} kg`;
-
-  const imageInfo = document.createElement('img');
-  imageInfo.src = pokemon.ImagenInfo;
-  imageInfo.alt = 'Imagen de información';
-
-  imageInfo.addEventListener('click', () => {
-    showPokemonInfo(pokemon);
-  });
-// alle infos zu dem pokemon
-  info.appendChild(height);
-  info.appendChild(weight);
-  info.appendChild(imageInfo);
-
-  card.appendChild(image);
-  card.appendChild(name);
-  card.appendChild(type)
-  card.appendChild(description);
-  card.appendChild(info);
-
-  pokedex.appendChild(card);
-}
 
 
