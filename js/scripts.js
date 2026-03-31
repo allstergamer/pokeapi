@@ -19,7 +19,7 @@ async function loadPokemons() {
 
                 const germanEntry = speciesData.names.find(n => n.language.name === "de");
                 if (germanEntry) {
-                    /*console.log(`DE: ${germanEntry.name}, EN: ${data.name}`);*/ // Überprüfe die Ausgabe im Browser
+                    console.log(`DE: ${germanEntry.name}, EN: ${data.id}`); // Überprüfe die Ausgabe im Browser
                     germanToEnglish[germanEntry.name.toLowerCase()] = data.name;
                     englishToGerman[data.name] = germanEntry.name;
                 }
@@ -39,14 +39,15 @@ function renderPokemonList() {
     const listDiv = document.getElementById("pokemonList");
     listDiv.innerHTML = "";
 
-    allPokemon.forEach(p => {
+    allPokemon.forEach((p, index) => {
         const germanName = englishToGerman[p.name] || capitalize(p.name);
-
         const div = document.createElement("div");
         div.className = "pokemonItem";
-        div.innerText = germanName;
+        const dex = String(index + 1).padStart(4, "0");
+        div.innerText = dex +" "+ germanName + " " + capitalize(p.name);
         div.onclick = () => loadPokemonDetail(p.name); // API braucht englischen Namen
         listDiv.appendChild(div);
+        
     });
 }
 // Pokémon Detail laden beim anklicken in der liste oder beim suchen
@@ -95,6 +96,7 @@ async function loadPokemonDetail(name) {
             <div class="pokemon-info-block">
                 <h2>${germanName} (${capitalize(data.name)})</h2>
                 <p><strong>Typen:</strong> ${types}</p>
+                <p><strong>DEX nummer:</strong> ${data.id}</p>
                 <p><strong>Größe:</strong> ${data.height / 10} m</p>
                 <p><strong>Gewicht:</strong> ${data.weight / 10} kg</p>
                 <p><strong>Fähigkeiten:</strong> ${abilities}</p>
