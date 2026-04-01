@@ -2,6 +2,18 @@ let allPokemon = [];
 let germanToEnglish = {};
 let englishToGerman = {};
 
+
+function hideLoader() {
+  const loader = document.getElementById("loadingScreen");
+
+  loader.classList.add("fade-out");
+
+  loader.addEventListener("transitionend", () => {
+    loader.style.display = "none";
+  });
+}
+
+
 async function loadPokemons() {
     try {
         const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // oder 151
@@ -28,6 +40,7 @@ async function loadPokemons() {
             }
         }
 
+        hideLoader();
         renderPokemonList();
     } catch (err) {
         console.error(err);
@@ -37,7 +50,7 @@ async function loadPokemons() {
 
 function renderPokemonList() {
     const listDiv = document.getElementById("pokemonList");
-    listDiv.innerHTML = "";
+
 
     allPokemon.forEach((p, index) => {
         const germanName = englishToGerman[p.name] || capitalize(p.name);
@@ -100,7 +113,7 @@ async function loadPokemonDetail(name) {
             <div class="pokemon-info-block">
                 <h2>${germanName} (${capitalize(data.name)})</h2>
                 <p><strong>Typen:</strong> ${types}</p>
-                <p><strong>DEX nummer:</strong> ${data.id}</p>
+                <p><strong>DEX nummer:</strong> ${String(data.id).padStart(4, "0")}</p>
                 <p><strong>Größe:</strong> ${data.height / 10} m</p>
                 <p><strong>Gewicht:</strong> ${data.weight / 10} kg</p>
                 <p><strong>Fähigkeiten:</strong> ${abilities}</p>
