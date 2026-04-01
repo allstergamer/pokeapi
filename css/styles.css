@@ -57,6 +57,13 @@ body {
     padding: 5px;
 }
 
+#namenTypeShit {
+    display: grid;
+    grid-template-columns: 120px 150px 150px;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
 .pokemonItem {
     border: 1px solid #d1c1ecbd;
     padding-bottom: 5px;
