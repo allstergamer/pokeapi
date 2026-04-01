@@ -44,7 +44,11 @@ function renderPokemonList() {
         const div = document.createElement("div");
         div.className = "pokemonItem";
         const dex = String(index + 1).padStart(4, "0");
-        div.innerText = dex +" "+ germanName + " " + capitalize(p.name);
+        div.innerHTML = `
+            <span class="dex">${dex}</span>
+            <span class="german">${germanName}</span>
+            <span class="english">${capitalize(p.name)}</span>
+        `;
         div.onclick = () => loadPokemonDetail(p.name); // API braucht englischen Namen
         listDiv.appendChild(div);
         
