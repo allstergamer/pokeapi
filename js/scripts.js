@@ -19,9 +19,26 @@ async function loadPokemons() {
         const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025');
         const listData = await listRes.json();
         allPokemon = listData.results;
-        
+
+        // Deutsches Mapping parallel holen
+        await Promise.all(allPokemon.map(async (p) => {
+            try {
+                const res = await fetch(p.url);
+                const data = await res.json();
+                const speciesRes = await fetch(data.species.url);
+                const speciesData = await speciesRes.json();
+                const germanEntry = speciesData.names.find(n => n.language.name === "de");
+                if (germanEntry) {
+                    germanToEnglish[germanEntry.name.toLowerCase()] = data.name;
+                    englishToGerman[data.name] = germanEntry.name;
+                }
+            } catch (e) {
+                console.error("Mapping Fehler:", p.name, e);
+            }
+        }));
+
         hideLoader();
-        renderPokemonList(); // nur Name + Index anzeigen
+        renderPokemonList();
     } catch (err) {
         console.error(err);
         document.getElementById("pokemonList").innerText = "Fehler beim Laden";
@@ -118,6 +135,7 @@ async function loadPokemonDetail(name) {
 // Suchfunktion ueber den details
 
 // 🔹 Suchfunktion für deutsche und englische Namen
+// 🔹 Suchfunktion für deutsche und englische Namen
 function searchPokemon() {
     const query = document.getElementById("searchInput").value.toLowerCase().trim();
     let apiName = germanToEnglish[query]; // DE → EN Mapping
@@ -133,6 +151,14 @@ function searchPokemon() {
         document.getElementById("pokemonDetail").innerHTML = `<p style="color:red">Pokémon nicht gefunden</p>`;
     }
 }
+
+// 🔹 Enter-Taste registrieren (nur einmal beim Laden)
+const searchInput = document.getElementById("searchInput");
+searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        searchPokemon();
+    }
+});
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
