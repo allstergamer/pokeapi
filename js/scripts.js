@@ -16,32 +16,12 @@ function hideLoader() {
 
 async function loadPokemons() {
     try {
-        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025'); // oder 151
+        const listRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1025');
         const listData = await listRes.json();
-        allPokemon = listData.results; // {name, url}
-
-        // Mapping aufbauen
-        for (let p of allPokemon) {
-            try {
-                const res = await fetch(p.url);
-                const data = await res.json();
-
-                const speciesRes = await fetch(data.species.url);
-                const speciesData = await speciesRes.json();
-
-                const germanEntry = speciesData.names.find(n => n.language.name === "de");
-                if (germanEntry) {
-                    console.log(`DE: ${germanEntry.name}, EN: ${data.id}`); // Überprüfe die Ausgabe im Browser
-                    germanToEnglish[germanEntry.name.toLowerCase()] = data.name;
-                    englishToGerman[data.name] = germanEntry.name;
-                }
-            } catch (e) {
-                console.error("Mapping Fehler:", p.name, e);
-            }
-        }
-
+        allPokemon = listData.results;
+        
         hideLoader();
-        renderPokemonList();
+        renderPokemonList(); // nur Name + Index anzeigen
     } catch (err) {
         console.error(err);
         document.getElementById("pokemonList").innerText = "Fehler beim Laden";

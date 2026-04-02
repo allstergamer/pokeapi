@@ -3,8 +3,8 @@
 /* =========================== */
 body {
     font-family: Arial, sans-serif;
-    color: #ffffff;
     background-size: cover;
+    color: #ffffff;
     background-position: center;
     background-attachment: fixed; 
     background-image: url("https://wallpapers-clan.com/wp-content/uploads/2025/07/pokemon-eevee-and-evolutions-dreamy-sleep-desktop-wallpaper-preview.jpg");
@@ -232,7 +232,30 @@ button:active {
 .loader {
   transform: scale(1.2);  
   --time-animation: 1s;
+  opacity: 1;
 }
+#cloud {
+    width: 200px;
+    height: auto;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.arrows {
+  transform-origin: 100px 100px; /* Zentrum der SVG */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 /* =========================== */
 /* MOBILE MEDIA QUERIES */
