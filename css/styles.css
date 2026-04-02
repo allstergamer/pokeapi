@@ -236,10 +236,10 @@ button:active {
 
 /* =========================== */
 /* MOBILE MEDIA QUERIES */
-/* =========================== */
+/* =========================== */ /*
 @media (max-width: 768px) {
 
-  /* CONTAINER FULL WIDTH */
+  /* CONTAINER FULL WIDTH */ /*
   .bodyelement {
     width: 95%;
     margin: 70px auto 20px auto;
@@ -247,7 +247,7 @@ button:active {
     padding: 15px;
   }
 
-  /* POKEMON LIST */
+  /* POKEMON LIST */ /*
   #namenTypeShit { display: none; }
   .pokemonItem {
     display: flex;
@@ -265,7 +265,7 @@ button:active {
   }
   .pokemonItem:active { transform: scale(0.97); }
 
-  /* POKEMON DETAIL */
+  /* POKEMON DETAIL */ /*
   #pokemonDetail {
     flex-direction: column;
     align-items: center;
@@ -286,7 +286,7 @@ button:active {
     margin-top: 10px;
   }
 
-  /* SEARCH BOX */
+  /* SEARCH BOX */ /*
   .searchBox {
     width: 100%;
   }
@@ -300,15 +300,17 @@ button:active {
     height: 35px;
   }
 
-  /* POKEDEX GRID CARDS */
+  /* POKEDEX GRID CARDS */ /*
   #pokedex {
     flex-direction: column;
     align-items: center;
     gap: 15px;
   }
 
-  /* POKEMON LIST HEIGHT */
+  /* POKEMON LIST HEIGHT */ /*
   #pokemonList {
     max-height: 50vh;
   }
 }
+
+*/ 
