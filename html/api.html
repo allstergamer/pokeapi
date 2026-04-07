@@ -39,6 +39,13 @@
             </form>
         </div>
 
+        <div class="notes-backup-delete">
+            <button id="export-button">Notizen exportieren (.json)</button>
+            <input type="file" id="import-file" style="display:none">
+            <button id="import-button">Notizen importieren (.json)</button>
+            <button id="clear-button">Alle Notizen löschen</button>
+        </div>
+
         <div class="notes-list-section">
             <h2>Meine Notizen</h2>
             <div id="notes-list">
@@ -46,11 +53,7 @@
                 <p class="loading-message">Notizen werden geladen...</p>
             </div>
         </div>
-        <div class="notes-backup">
-            <button id="export-button">Notizen exportieren (.json)</button>
-            <input type="file" id="import-file" style="display:none">
-            <button id="import-button">Notizen importieren (.json)</button>
-        </div>
+
     </div>
 
     <script src="../js/api.js"></script>

@@ -27,7 +27,7 @@ h1, h2 {
 .add-note-section, .notes-list-section {
     margin-bottom: 40px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
 }
 .notes-list-section:last-child {
     border-bottom: none;
@@ -194,4 +194,19 @@ h1, h2 {
     cursor: pointer;
     background-color: #007bff;
     color: white;
+}
+
+.notes-backup-delete {
+    
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+#clear-button {
+    background-color: #dc3545;
+    color: white;
+}
+#clear-button:hover {
+    background-color: #c82333;
 }

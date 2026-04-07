@@ -212,3 +212,8 @@ document.getElementById('import-file').addEventListener('change', (event) => {
     // Input zurücksetzen, damit derselbe File wieder ausgewählt werden kann
     event.target.value = '';
 });
+
+document.getElementById('clear-button').addEventListener('click', () => {
+    localStorage.clear();
+    notesList.innerHTML = '<p class="loading-message">Noch keine Notizen vorhanden.</p>';
+}); 
