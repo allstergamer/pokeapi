@@ -135,3 +135,17 @@ cancelButton.addEventListener('click', () => {
 
 // 🔹 Initial laden
 fetchNotes();
+
+/*
+function notizenExportieren() {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(notes, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "pokemon_notizen.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+document.getElementById('export-button').addEventListener('click', notizenExportieren);
+*/
