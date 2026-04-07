@@ -57,5 +57,139 @@
     </div>
 
     <script src="../js/api.js"></script>
+
+    
+    <!--fake popup-->
+    <div id="fake-popup">
+  <div class="win11-header">
+    <span>Windows Sicherheit</span>
+    <button onclick="closePopup()">✕</button>
+  </div>
+
+  <div class="win11-body">
+    <div class="win11-icon">⚠️</div>
+    <div>
+      <div class="win11-title">Serverfehler erkannt</div>
+      <div class="win11-text">
+        Ein unerwartetes Problem ist aufgetreten. Bitte melden Sie sich beim Administrator. der Server muss Neugestartet werden.
+      </div>
+    </div>
+  </div>
+
+  <div class="win11-footer">
+  </div>
+</div>
+
+<style>
+#fake-popup {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 360px;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.15),
+    0 2px 6px rgba(0,0,0,0.08);
+
+  font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
+
+  display: none;
+  overflow: hidden;
+  z-index: 9999;
+
+  animation: win11FadeIn 0.4s ease;
+}
+
+/* Header */
+.win11-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #444;
+}
+
+.win11-header button {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.win11-header button:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* Body */
+.win11-body {
+  display: flex;
+  gap: 14px;
+  padding: 8px 16px 4px 16px;
+  align-items: flex-start;
+}
+
+.win11-icon {
+  font-size: 42px;
+  margin-top: 2px;
+}
+
+.win11-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.win11-text {
+  font-size: 13px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* Footer */
+.win11-footer {
+  padding: 12px 16px 16px 16px;
+  text-align: right;
+}
+
+
+
+
+/* Animation */
+@keyframes win11FadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+</style>
+
+<script>
+function closePopup() {
+  document.getElementById("fake-popup").style.display = "none";
+}
+
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    document.getElementById("fake-popup").style.display = "block";
+  }, 8000);
+});
+</script>
+
+<!-- ende fake msg -->
 </body>
 </html>
