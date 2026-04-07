@@ -136,9 +136,36 @@ cancelButton.addEventListener('click', () => {
 // 🔹 Initial laden
 fetchNotes();
 
-/*
-function notizenExportieren() {
+function searchNotes() {
+    const searchTitle = document.getElementById("searchInput").value.toLowerCase().trim();
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+    const filteredNotes = notes.filter(note => note.title.toLowerCase().includes(searchTitle));
+
+    const notesList = document.getElementById('notes-list');
+    notesList.innerHTML = '';
+
+    if (filteredNotes.length === 0) {
+        notesList.innerHTML = '<p class="loading-message">Keine passenden Notizen gefunden.</p>';
+        return;
+    }
+
+    // Neueste zuerst
+    filteredNotes.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    filteredNotes.forEach(note => displayNote(note));
+
+}
+
+
+// 🔹 Exportieren als JSON
+document.getElementById('export-button').addEventListener('click', () => {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    if (notes.length === 0) {
+        alert('Keine Notizen zum Exportieren vorhanden.');
+        return;
+    }
+
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(notes, null, 2));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
@@ -146,6 +173,42 @@ function notizenExportieren() {
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
-}
-document.getElementById('export-button').addEventListener('click', notizenExportieren);
-*/
+});
+
+// 🔹 Importieren
+document.getElementById('import-button').addEventListener('click', () => {
+    document.getElementById('import-file').click();
+});
+
+document.getElementById('import-file').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const importedNotes = JSON.parse(e.target.result);
+            if (!Array.isArray(importedNotes)) throw new Error('Ungültiges Format.');
+
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+            // Prüfen auf Duplikate nach ID
+            importedNotes.forEach(importedNote => {
+                if (!notes.some(n => n.id === importedNote.id)) {
+                    notes.push(importedNote);
+                }
+            });
+
+            localStorage.setItem('notes', JSON.stringify(notes));
+            fetchNotes();
+            alert('Notizen erfolgreich importiert!');
+        } catch (err) {
+            alert('Fehler beim Importieren der Datei.');
+            console.error(err);
+        }
+    };
+    reader.readAsText(file);
+
+    // Input zurücksetzen, damit derselbe File wieder ausgewählt werden kann
+    event.target.value = '';
+});

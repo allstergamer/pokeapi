@@ -177,3 +177,21 @@ h1, h2 {
     border-radius: 20px;
     background: rgba(0,0,0,0.6);
 }
+
+.searchBoxNotes  {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.searchNotesInput .searchNotesButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}

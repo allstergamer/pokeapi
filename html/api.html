@@ -24,7 +24,10 @@
 
 <div class="container">
         <h1>Mein Notizblock</h1>
-
+        <div class="searchBoxNotes">
+            <input class="searchNotesInput" type="text" id="searchInput" placeholder="Notizen durchsuchen.." />
+            <button class="searchNotesButton" onclick="searchNotes()">Suchen</button>
+        </div>
         <div class="add-note-section">
             <h2>Neue Notiz hinzufügen</h2>
             <form id="note-form">
@@ -43,10 +46,11 @@
                 <p class="loading-message">Notizen werden geladen...</p>
             </div>
         </div>
-        <!-- Export-Button -->
-        <!-- 
-        <button id="export-button">Notizen exportieren</button> 
-        -->
+        <div class="notes-backup">
+            <button id="export-button">Notizen exportieren (.json)</button>
+            <input type="file" id="import-file" style="display:none">
+            <button id="import-button">Notizen importieren (.json)</button>
+        </div>
     </div>
 
     <script src="../js/api.js"></script>
