@@ -53,9 +53,14 @@ h1, h2 {
 /* POKEMON LIST / CARD STYLE   */
 /* =========================== */
 #pokemonList {
-    max-height: 400px;
+    /* max-height: 400px; */
     overflow-y: scroll;
-    padding: 5px;
+    padding: 5px;scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+
+#pokemonList::-webkit-scrollbar {
+    display: none; /* Chrome */
 }
 #namenTypeShit {
     display: grid;
@@ -152,6 +157,26 @@ h1, h2 {
 .pokemon-info p {
     margin-top: 10px;
 }
+.details-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.details-header button {
+    padding: 6px 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background: #74747475;
+    color: white;
+    cursor: pointer;
+}
+
+.details-header button:hover {
+    background: #555;
+}
 
 /* =========================== */
 /* SEARCH BOX */
@@ -205,6 +230,57 @@ button:active {
     width: 160px;
 }
 
+.type {
+    width: 40px;
+    text-align: center;
+    border-color: #1A1A1A;
+    border: 3px solid;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: rgb(255, 255, 255);
+    font-size: 0.8rem;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+/* Typ Farben */
+.normal { background: #A8A878; }
+.feuer { background: #F08030; }
+.wasser { background: #6890F0; }
+.pflanze { background: #78C850; }
+.elektro { background: #F8D030; color: black; }
+.eis { background: #98D8D8; color: black; }
+.kampf { background: #C03028; }
+.gift { background: #A040A0; }
+.boden { background: #E0C068; color: black; }
+.flug { background: #A890F0; }
+.psycho { background: #F85888; }
+.käfer { background: #A8B820; }
+.gestein { background: #B8A038; }
+.geist { background: #705898; }
+.drache { background: #7038F8; }
+.unlicht { background: #705848; }
+.stahl { background: #B8B8D0; color: black; }
+.fee { background: #EE99AC; }
+
+.pokemon-nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pokemon-nav button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #6b6b6b70;
+    color: white;
+    cursor: pointer;
+}
+
+.pokemon-nav button:hover {
+    background: #555;
+}
 /* =========================== */
 /* LOADING SCREEN */
 /* =========================== */

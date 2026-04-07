@@ -1,7 +1,9 @@
 let allPokemon = [];
 let germanToEnglish = {};
 let englishToGerman = {};
-
+let germanToEnglishType = {};
+let englishToGermanType = {};
+let currentPokemonIndex = 0;
 
 function hideLoader() {
   const loader = document.getElementById("loadingScreen");
@@ -66,6 +68,7 @@ function renderPokemonList() {
 }
 // Pokémon Detail laden beim anklicken in der liste oder beim suchen
 async function loadPokemonDetail(name) {
+    currentPokemonIndex = allPokemon.findIndex(p => p.name === name);
     const detailDiv = document.getElementById("pokemonDetail");
 
     try {
@@ -86,15 +89,47 @@ async function loadPokemonDetail(name) {
         const germanTextEntry = speciesData.flavor_text_entries.find(
             f => f.language.name === "de"
         );
+        // Deutsche Typen 
+        const englishToGermanType = speciesData.flavor_text_entries.find(
+            f => f.language.name === "de"
+        );
         const description = germanTextEntry 
             ? germanTextEntry.flavor_text.replace(/\f/g, " ")
             : "Keine Beschreibung";
 
         // Typen
-        const types = data.types.map(t => t.type.name).join(', ');
+        const types = await Promise.all(
+            data.types.map(async (t) => {
+                const typeRes = await fetch(t.type.url);
+                const typeData = await typeRes.json();
+
+                const germanType = typeData.names.find(n => n.language.name === "de");
+                return germanType ? germanType.name.toLowerCase() : t.type.name;
+            })
+        );
+
+const typesHTML = types.map(t => 
+    `<span class="type ${t}">${capitalize(t)}</span>`
+).join('');
+
+const typesString = types.join(', ');
+
+
 
         // Fähigkeiten
-        const abilities = data.abilities.map(a => a.ability.name).join(', ');
+        const abilities = await Promise.all(
+            data.abilities.map(async (a) => {
+                const abilityRes = await fetch(a.ability.url);
+                const abilityData = await abilityRes.json();
+
+                const germanAbility = abilityData.names.find(n => n.language.name === "de");
+                return germanAbility ? germanAbility.name : a.ability.name;
+            })
+        );
+
+const abilitiesString = abilities.join(', ');
+
+
 
         // Stats
         const stats = data.stats.map(s => `
@@ -103,33 +138,54 @@ async function loadPokemonDetail(name) {
 
         // HTML bauen
             detailDiv.innerHTML = `
-        <div class="pokemon-detail-container">
-
+            <div class="pokemon-detail-container">
+            
             <img src="${data.sprites.front_default}" alt="${data.name}">
-
+            
             <div class="pokemon-info-block">
-                <h2>${germanName} (${capitalize(data.name)})</h2>
-                <p><strong>Typen:</strong> ${types}</p>
-                <p><strong>DEX nummer:</strong> ${String(data.id).padStart(4, "0")}</p>
-                <p><strong>Größe:</strong> ${data.height / 10} m</p>
-                <p><strong>Gewicht:</strong> ${data.weight / 10} kg</p>
-                <p><strong>Fähigkeiten:</strong> ${abilities}</p>
+            <h2>${germanName} (${capitalize(data.name)})</h2>
+            <p><strong>Typen:</strong> ${typesHTML}</p>
+            <p><strong>DEX nummer:</strong> ${String(data.id).padStart(4, "0")}</p>
+            <p><strong>Größe:</strong> ${data.height / 10} m</p>
+            <p><strong>Gewicht:</strong> ${data.weight / 10} kg</p>
+            <p><strong>Fähigkeiten:</strong> ${abilitiesString}</p>
             </div>
-
+            
             <div class="pokemon-stats-block">
-                <h3>Stats</h3>
-                ${stats}
+            <h3>Stats</h3>
+            ${stats}
             </div>
-
+            
             <div class="pokemon-description-block">
-                <h3>Beschreibung</h3>
-                <p>${description}</p>
+            <h3>Beschreibung</h3>
+            <p>${description}</p>
             </div>
 
         </div>
     `;
+        document.getElementById("searchInput").scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
     } catch (err) {
         detailDiv.innerHTML = `<p style="color:red">${err.message}</p>`;
+    }
+    document.querySelector(".details-header button:first-child").disabled = currentPokemonIndex === 0;
+    document.querySelector(".details-header button:last-child").disabled = currentPokemonIndex === allPokemon.length - 1;
+    
+}
+
+function nextPokemon() {
+    if (currentPokemonIndex < allPokemon.length - 1) {
+        currentPokemonIndex++;
+        loadPokemonDetail(allPokemon[currentPokemonIndex].name);
+    }
+}
+
+function prevPokemon() {
+    if (currentPokemonIndex > 0) {
+        currentPokemonIndex--;
+        loadPokemonDetail(allPokemon[currentPokemonIndex].name);
     }
 }
 // Suchfunktion ueber den details
