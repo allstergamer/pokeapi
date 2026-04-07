@@ -66,7 +66,7 @@ Die Anwendung lädt Daten clientseitig und verarbeitet diese im Browser.
 ### 🔄 Ablauf
 
 1. Pokémon-Liste laden (`/pokemon`)
-2. Detaildaten laden (`/pokemon/{id}`)
+2. Details laden (`/pokemon/{id}`)
 3. Speziesdaten laden (`/pokemon-species/{id}`)
 4. Daten zusammenführen
 5. Speicherung in lokalen Strukturen
@@ -101,7 +101,7 @@ Mapping:
 ### `loadPokemons()`
 
 - lädt Pokémon-Liste
-- lädt Detaildaten
+- lädt Details
 - lädt Speziesdaten
 - extrahiert deutsche Namen
 - erstellt Mapping
