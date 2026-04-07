@@ -204,9 +204,20 @@ h1, h2 {
     margin-top: 20px;
 }
 #clear-button {
-    background-color: #dc3545;
+    border-radius: 5px;
+    background-color: #f55061;
     color: white;
+    padding: 10px 15px;
 }
 #clear-button:hover {
-    background-color: #c82333;
+    background-color: #e22e2e;
+}
+#export-button, #import-button {
+    border-radius: 5px;
+    background-color: #5956e7a9;
+    color: white;
+    padding: 10px 15px;
+}
+#export-button:hover, #import-button:hover {
+    background-color: #3634a3d3;
 }
