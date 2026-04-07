@@ -44,7 +44,8 @@ h1, h2 {
 #note-form input[type="text"],
 #note-form textarea {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid;
+    background: linear-gradient(0deg, #f1f1f1 0%, #fdfdfd 100%);  
     border-radius: 5px;
     font-size: 1rem;
     width: 100%;
@@ -86,7 +87,9 @@ h1, h2 {
 
 /* Notizen-Liste */
 .note-item {
-    background-color: #fdfdfd;
+    /*background-color: #FFEB3B;*/
+    background: linear-gradient( #FFF9C4 0%, #FFF176 100%); 
+    color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     padding: 20px;
@@ -99,20 +102,20 @@ h1, h2 {
 
 .note-item h3 {
     margin: 0 0 10px 0;
-    color: #34495e;
+    color: #000000;
 }
 
 .note-item p {
     margin: 0;
     line-height: 1.6;
-    color: #555;
+    color:#000000;
 }
 
 .note-meta {
     font-size: 0.85em;
-    color: #888;
+    color: #000000;
     margin-top: 10px;
-    border-top: 1px dashed #eee;
+    border-top: 1px dashed #ad9611;
     padding-top: 8px;
 }
 
