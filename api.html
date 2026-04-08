@@ -1,0 +1,334 @@
+/* =========================== */
+/* BASIS (Desktop bleibt) */
+/* =========================== */
+body {
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    color: #ffffff;
+    background-position: center;
+    background-attachment: fixed; 
+    background-image: url("https://wallpapers-clan.com/wp-content/uploads/2025/07/pokemon-eevee-and-evolutions-dreamy-sleep-desktop-wallpaper-preview.jpg");
+    margin: 0;
+}
+h1, h2 {
+    text-align: center;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(90deg,rgba(134, 75, 153, 0.85) 0%, rgba(127, 219, 217, 0.85) 50%, rgba(240, 201, 96, 0.85) 100%); 
+    padding: 10px 0;
+    z-index: 1000;
+    border-radius: 0 0 25px 25px;
+}
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+.navbar li {
+    margin: 0 20px;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* =========================== */
+/* CONTAINER */
+/* =========================== */
+.bodyelement {
+    width: 80%;
+    margin: 50px auto;
+    background: linear-gradient(90deg,rgba(134, 75, 153, 0.85) 0%, rgba(127, 219, 217, 0.85) 50%, rgba(240, 201, 96, 0.85) 100%); 
+    padding: 20px;
+    border-radius: 20px;
+}
+
+/* =========================== */
+/* POKEMON LIST / CARD STYLE   */
+/* =========================== */
+#pokemonList {
+    /* max-height: 400px; */
+    overflow-y: scroll;
+    padding: 5px;scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+
+#pokemonList::-webkit-scrollbar {
+    display: none; /* Chrome */
+}
+#namenTypeShit {
+    display: grid;
+    grid-template-columns: 120px 150px 150px;
+    padding: 10px 0;
+    font-weight: bold;
+}
+.pokemonItem {
+    border: 1px solid #d1c1ecbd;
+    padding: 10px 0;
+    margin: 2px 0;
+    display: grid;
+    grid-template-columns: 120px 150px 150px;
+    cursor: pointer;
+}
+
+/* =========================== */
+/* POKEDEX GRID CARDS */
+/* =========================== */
+#pokedex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+.pokemon-type {
+    background-color: #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* =========================== */
+/* DETAIL VIEW */
+/* =========================== */
+#pokemonDetail {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 3px solid #7945f333;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    padding: 20px;
+    background-color: rgba(154, 154, 156, 0.344);
+}
+.pokemon-detail-container {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+.pokemon-detail-container img {
+    width: 150px;
+    height: 150px;
+}
+.pokemon-info-block, .pokemon-stats-block {
+    display: flex;
+    flex-direction: column;
+}
+.pokemon-description-block {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+}
+.pokemon-details-text {
+    display: flex;
+    flex-direction: column;
+}
+.pokemon-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.pokemon-info p {
+    margin-top: 10px;
+}
+.details-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.details-header button {
+    padding: 6px 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background: #74747475;
+    color: white;
+    cursor: pointer;
+}
+
+.details-header button:hover {
+    background: #555;
+}
+
+/* =========================== */
+/* SEARCH BOX */
+/* =========================== */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+.searchBox {
+    display: flex;
+    max-width: 2300px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #2f3640;
+    border-radius: 50px;
+    position: relative;
+}
+.searchButton {
+    color: white;
+    position: absolute;
+    right: 8px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(90deg,rgba(134, 75, 153, 0.85) 0%, rgba(127, 219, 217, 0.85) 100%); 
+    border: 0;
+    display: inline-block;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+}
+button:hover {
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+    transform: translateY(-3px);
+}
+button:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+.searchInput {
+    border: 50px;
+    background: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    padding: 24px 1000px 24px 26px;
+    width: 160px;
+}
+
+.type {
+    width: 40px;
+    text-align: center;
+    border-color: #1A1A1A;
+    border: 3px solid;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: rgb(255, 255, 255);
+    font-size: 0.8rem;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+/* Typ Farben */
+.normal { background: #A8A878; }
+.feuer { background: #F08030; }
+.wasser { background: #6890F0; }
+.pflanze { background: #78C850; }
+.elektro { background: #F8D030; color: black; }
+.eis { background: #98D8D8; color: black; }
+.kampf { background: #C03028; }
+.gift { background: #A040A0; }
+.boden { background: #E0C068; color: black; }
+.flug { background: #A890F0; }
+.psycho { background: #F85888; }
+.käfer { background: #A8B820; }
+.gestein { background: #B8A038; }
+.geist { background: #705898; }
+.drache { background: #7038F8; }
+.unlicht { background: #705848; }
+.stahl { background: #B8B8D0; color: black; }
+.fee { background: #EE99AC; }
+
+.pokemon-nav {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pokemon-nav button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #6b6b6b70;
+    color: white;
+    cursor: pointer;
+}
+
+.pokemon-nav button:hover {
+    background: #555;
+}
+/* =========================== */
+/* LOADING SCREEN */
+/* =========================== */
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+#loadingScreen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+.loader {
+  transform: scale(1.2);  
+  --time-animation: 1s;
+  opacity: 1;
+}
+#cloud {
+    width: 200px;
+    height: auto;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+.arrows {
+  transform-origin: 100px 100px; /* Zentrum der SVG */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+

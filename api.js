@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Notizblock</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/api.css">
+    <link rel="icon" type="image/x-icon" href="../assets/fav.ico">
+</head>
+<body>
+    <br>
+<div id="back-top"><br></div>
+<nav class="navbar">
+    <ul>
+        <li><a href="../html/index.html">Home</a></li>
+        <li><a href="https://github.com/allstergamer">Lisa github</a></li>
+        <li><a href="https://github.com/Zerberstian">Sebastian github</a></li>
+        <li><a href="https://www.pokemon.com/de">Pokémon Official</a></li>
+        <li><a href="https://github.com/allstergamer/pokeapi">Quellcode</a></li>
+        <li><a href="../html/api.html">api notes</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+        <h1>Mein Notizblock</h1>
+        <div class="searchBoxNotes">
+            <input class="notessearch" type="text" id="searchInput" placeholder="Notizen durchsuchen.." />
+            <button class="searchNotesButton" onclick="searchNotes()">Suchen</button>
+        </div>
+        <div class="add-note-section">
+            <h2>Neue Notiz hinzufügen</h2>
+            <form id="note-form">
+                <input type="hidden" id="note-id" value="">
+                <input type="text" id="note-title" placeholder="Titel der Notiz" required>
+                <textarea id="note-content" placeholder="Inhalt der Notiz" rows="5" required></textarea>
+                <button type="submit" id="submit-button">Notiz speichern</button>
+                <button type="button" id="cancel-edit-button" class="hidden">Bearbeitung abbrechen</button>
+            </form>
+        </div>
+
+        <div class="notes-backup-delete">
+            <button id="export-button">Notizen exportieren (.json)</button>
+            <input type="file" id="import-file" style="display:none">
+            <button id="import-button">Notizen importieren (.json)</button>
+            <button id="clear-button">Alle Notizen löschen</button>
+        </div>
+
+        <div class="notes-list-section">
+            <h2>Meine Notizen</h2>
+            <div id="notes-list">
+                <!-- Notizen werden hier dynamisch eingefügt -->
+                <p class="loading-message">Notizen werden geladen...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/api.js"></script>
+
+
+
+
+
+    
+    <!--fake popup-->
+    <div id="fake-popup">
+  <div class="win11-header">
+    <span>Windows Sicherheit</span>
+    <button onclick="closePopup()">✕</button>
+  </div>
+
+  <div class="win11-body">
+    <div class="win11-icon">⚠️</div>
+    <div>
+      <div class="win11-title">Serverfehler</div>
+      <div class="win11-text">
+          Ein kritischer Fehler ist aufgetreten. Der Server muss neu gestartet werden. Bitte wenden Sie sich an den Administrator. <br> hexcode 0x6A6F6B65 <br> Fehlercode: 0xDEADBEEF
+      </div>
+    </div>
+  </div>
+
+  <div class="win11-footer">
+  </div>
+</div>
+<style>
+#fake-popup {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 400px;
+
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,0.15),
+    0 2px 6px rgba(0,0,0,0.08);
+
+  font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
+
+  display: none;
+  overflow: hidden;
+  z-index: 9999;
+
+  animation: win11FadeIn 0.4s ease;
+}
+
+/* Header */
+.win11-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #444;
+}
+
+.win11-header button {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.win11-header button:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* Body */
+.win11-body {
+  display: flex;
+  gap: 14px;
+  padding: 8px 16px 4px 16px;
+  align-items: flex-start;
+}
+
+.win11-icon {
+  font-size: 42px;
+  margin-top: 2px;
+}
+
+.win11-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.win11-text {
+  font-size: 13px;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* Footer */
+.win11-footer {
+  padding: 12px 16px 16px 16px;
+  text-align: right;
+}
+
+
+
+
+/* Animation */
+@keyframes win11FadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+</style>
+<script>
+function closePopup() {
+  document.getElementById("fake-popup").style.display = "none";
+}
+
+window.addEventListener("load", function () {
+  setTimeout(function () {
+    document.getElementById("fake-popup").style.display = "block";
+  }, 8000);
+});
+</script>
+
+<!-- ende fake msg -->
+
+
+</body>
+</html>
