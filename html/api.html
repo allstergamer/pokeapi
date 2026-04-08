@@ -60,6 +60,8 @@
 
     
     <!--fake popup-->
+    <!--dient blos zum erschrecken, auser visual effects ist keine weitere funktion vorhanden-->
+    <!-- hexcode 0x6A6F6B65 ist "joke" in hexadecimal, Fehlercode: 0xDEADBEEF ist ein typischer platzhalter Fehlercode-->
     <div id="fake-popup">
   <div class="win11-header">
     <span>Windows Sicherheit</span>
@@ -79,7 +81,7 @@
   <div class="win11-footer">
   </div>
 </div>
-
+<!--css scrippt fuer die fake popup anzeige ist hier geblieben um es einfacher endfernen zu koennen-->
 <style>
 #fake-popup {
   position: fixed;
@@ -177,7 +179,7 @@
   }
 }
 </style>
-
+<!--js script fuer die fake popup anzeige ist hier geblieben um es einfacher endfernen zu koennen-->
 <script>
 function closePopup() {
   document.getElementById("fake-popup").style.display = "none";
